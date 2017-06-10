@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <!--打开开发模式-->
+    <constant name="struts.devMode" value="true" />
+
+    <!--设置默认action-->
+    <!--<package name="default" namespace="/" extends="struts-default">
+        <default-action-ref name="index"></default-action-ref>
+        <action name="index">
+            <result type="redirect">/login.jsp</result>
+        </action>
+    </package>-->
+
+    <package name="main" namespace="/main" extends="struts-default,json-default">
+        <action name="index" class="index">
+            <result name="success">/main/index.jsp</result>
+        </action>
+    </package>
+
+</struts>
