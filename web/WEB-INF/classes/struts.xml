@@ -26,5 +26,10 @@
                 <param name="root">registerBackDTO</param>
             </result>
         </action>
+        <action name="captcha" class="register" method="getCaptchaImg">
+            <result name="success" type="json">
+                <param name="root">captchaName</param>
+            </result>
+        </action>
     </package>
 </struts>

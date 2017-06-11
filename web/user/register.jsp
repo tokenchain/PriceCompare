@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -10,6 +11,14 @@
     <script type="text/javascript" src="../jslib/formValidation.min.js"></script>
     <script type="text/javascript" src="../jslib/framework/bootstrap.min.js"></script>
     <script>
+        //获取验证码
+        $(function () {
+            captchaRefresh();
+            $("#captchaImg").click(function () {
+                captchaRefresh();
+            })
+        })
+
         //表单验证
         $(document).ready(function() {
             $('#registerForm').formValidation({
@@ -25,28 +34,28 @@
                     username: {
                         validators: {
                             notEmpty: {
-                                message: '用户名不能为空'
+                                message: '请输入用户名'
                             },
                             stringLength: {
                                 min: 3,
                                 max: 15,
-                                message: '用户名长度必须在3到15位之间'
+                                message: '用户名长度须在3到15位之间'
                             },
                             regexp: {
                                 regexp: /^[a-zA-Z0-9_\u4E00-\u9FA5]+$/,
-                                message: '用户名格式不正确'
+                                message: '用户名格式有误'
                             }
                         }
                     },
                     password: {
                         validators: {
                             notEmpty: {
-                                message: '密码不能为空'
+                                message: '请填写密码'
                             },
                             stringLength: {
                                 min: 3,
                                 max: 20,
-                                message: '密码长度必须在3到20位之间'
+                                message: '密码长度须在3到20位之间'
                             },
                             regexp: {
                                 regexp: /^[a-zA-Z0-9_]+$/,
@@ -57,27 +66,39 @@
                     passwordRepeat: {
                         validators: {
                             notEmpty: {
-                                message: '密码不能为空'
+                                message: '请填写密码'
                             },
                             identical: {//相同
                                 field: 'password', //需要进行比较的input name值
-                                message: '两次密码不一致'
+                                message: '两次输入密码不一致'
                             },
                         }
                     },
                     email: {
                         validators: {
                             notEmpty: {
-                                message: '邮箱不能为空'
+                                message: '请输入邮箱地址'
                             },
                             emailAddress: {
-                                message: '邮件格式错误'
+                                message: '邮件格式有误'
                             }
+                        }
+                    },
+                    captcha: {
+                        validators: {
+                            notEmpty: {
+                                message: '请填写验证码'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9]{3,5}$/,
+                                message: '请填写正确的验证码'
+                            },
                         }
                     },
                 }
             });
         });
+
         //表单提交
         $(function () {
             $("#register").click(function () {
@@ -89,20 +110,21 @@
                         //alert("1");
                         $.post("//localhost:8080/user/new",
                             {username:$("#inputUsername").val(),password:$("#inputPassword").val(),passwordRepeat:$("#inputPasswordRepeat").val(),
-                                email:$("#inputEmail").val(),verify:$("#captcha").val()},
+                                email:$("#inputEmail").val(),captcha:$("#captcha").val()},
                             function (data) {
                                 alert(data);
                             },"json")
                     }
                 })
         })
+
         //验证码刷新
-        $(function () {
-            $("#captchaImg").click(function () {
-                alert("1");
-                $(this).attr("src","//localhost:8080/img/verification1.png");
-            })
-        })
+        function captchaRefresh() {
+            $.post("//localhost:8080/user/captcha",function (data) {
+                //alert(data);
+                $("#captchaImg").attr("src","//localhost:8080/img/verifyImg/" + data + ".png");
+            },"json")
+        }
     </script>
 </head>
 <body>
@@ -148,6 +170,7 @@
 </nav>
 <%--导航栏-------------------------------%>
 <div class="container-fluid">
+    <%--H3标题-------------------------------%>
     <div class="row-fluid">
         <div class="col-md-4"></div>
         <div class="col-md-4" style="padding: 9px;">
@@ -156,17 +179,22 @@
         </div>
         <div class="col-md-4"></div>
     </div>
+    <%--标题-------------------------------%>
+
+    <%--表格-------------------------------%>
     <div class="row-fluid">
         <div class="col-md-12">
             <form class="form-horizontal" role="form" id="registerForm">
+                <%--用户名-------------------------------%>
                 <div class="form-group">
                     <div class="col-md-2"></div>
                     <label class="col-md-2 control-label" for="inputUsername">用户名</label>
                     <div class="col-md-4">
-                        <input id="inputUsername" type="text" class="form-control" name="username" autocomplete="off" />
+                        <input id="inputUsername" type="text" class="form-control" name="username" autocomplete="off"  spellcheck="false"/>
                     </div>
                     <div class="col-md-4"></div>
                 </div>
+                <%--密码-------------------------------%>
                 <div class="form-group">
                     <div class="col-md-2"></div>
                     <label class="col-md-2 control-label" for="inputPassword">密码</label>
@@ -175,6 +203,7 @@
                     </div>
                     <div class="col-md-4"></div>
                 </div>
+                <%--确认密码-------------------------------%>
                 <div class="form-group">
                     <div class="col-md-2"></div>
                     <label class="col-md-2 control-label" for="inputPasswordRepeat">确认密码</label>
@@ -183,23 +212,26 @@
                     </div>
                     <div class="col-md-4"></div>
                 </div>
+                <%--email-------------------------------%>
                 <div class="form-group">
                     <div class="col-md-2"></div>
                     <label class="col-md-2 control-label" for="inputEmail">Email</label>
                     <div class="col-md-4">
-                        <input id="inputEmail" type="text" class="form-control" name="email" autocomplete="off" />
+                        <input id="inputEmail" type="text" class="form-control" name="email" autocomplete="off"  spellcheck="false"/>
                     </div>
                     <div class="col-md-4"></div>
                 </div>
+                <%--验证码-------------------------------%>
                 <div class="form-group">
                     <div class="col-md-2"></div>
                     <label class="col-md-2 control-label" for="captcha">验证码</label>
                     <div class="col-md-3">
-                        <input id="captcha" type="text" class="form-control" name="validateCode" autocomplete="off" />
+                        <input id="captcha" type="text" class="form-control" name="captcha" autocomplete="off" spellcheck="false"/>
                     </div>
-                    <div class="col-md-1"><img id="captchaImg" class="img-rounded" style="display: block;height:30px;max-height:100%;width: auto;max-width:100%" src="//localhost:8080/img/verification.png"></div>
+                    <div class="col-md-1"><img id="captchaImg" class="img-rounded" style="display: block;height:30px;max-height:100%;width: auto;max-width:100%" src="#"></div>
                     <div class="col-md-4"></div>
                 </div>
+                <%--注册按钮-------------------------------%>
                 <div class="form-group">
                     <div class="col-md-2"></div>
                     <div class="col-md-offset-2 col-md-4">
@@ -210,6 +242,7 @@
             </form>
         </div>
     </div>
+    <%--表格-------------------------------%>
 </div>
 </body>
 </html>

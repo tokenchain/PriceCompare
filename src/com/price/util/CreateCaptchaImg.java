@@ -1,9 +1,11 @@
 package com.price.util;
 
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,7 +14,8 @@ import java.io.OutputStream;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
-public class captchaImg {
+
+public class CreateCaptchaImg {
     // 默认图片的宽度。
     private int width = 160;
     // 默认图片的高度。
@@ -28,31 +31,44 @@ public class captchaImg {
     Random random = new Random();
 
     public static void main(String[] args) throws Exception{
-        captchaImg vCode = new captchaImg(90,30,4);
-        System.out.println("code: " + vCode.getCode());
-        File outputFile = new File("d:\\12306\\verification.png");
-        FileOutputStream fops = new FileOutputStream(outputFile);
-        vCode.write(fops);
+        FileOutputStream fops;
+
+        for(int i=0; i < 1000; i++) {
+            CreateCaptchaImg vCode = new CreateCaptchaImg(90,30,4);
+            String code = vCode.getCode().toLowerCase();
+            System.out.println("code: " + code);
+
+            BASE64Encoder enc=new BASE64Encoder();
+            String mes=enc.encodeBuffer(code.getBytes()); //使用BASE64编码
+            if(mes.contains("=")) {
+                mes = mes.substring(0, mes.indexOf("="));
+            }
+            System.out.println("加密后:" + mes);
+
+            File outputFile = new File("d:\\Captcha\\" + mes + ".png");
+            fops = new FileOutputStream(outputFile);
+            vCode.write(fops);
+        }
     }
 
-    public captchaImg() {
+    public CreateCaptchaImg() {
         creatImage();
     }
 
-    public captchaImg(int width, int height) {
+    public CreateCaptchaImg(int width, int height) {
         this.width = width;
         this.height = height;
         creatImage();
     }
 
-    public captchaImg(int width, int height, int codeCount) {
+    public CreateCaptchaImg(int width, int height, int codeCount) {
         this.width = width;
         this.height = height;
         this.codeCount = codeCount;
         creatImage();
     }
 
-    public captchaImg(int width, int height, int codeCount, int lineCount) {
+    public CreateCaptchaImg(int width, int height, int codeCount, int lineCount) {
         this.width = width;
         this.height = height;
         this.codeCount = codeCount;
@@ -105,7 +121,7 @@ public class captchaImg {
             g.setColor(new Color(0,0,0));
             // g.drawString(a,x,y);
             // a为要画出来的东西，x和y表示要画的东西最左侧字符的基线位于此图形上下文坐标系的 (x, y) 位置处
-            g.drawString(strRand, 10+i*fontWidth-6*i, codeY);
+            g.drawString(strRand, 10+i*fontWidth-6*i, codeY+random.nextInt(3));
         }
 
     }

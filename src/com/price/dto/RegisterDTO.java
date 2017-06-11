@@ -5,7 +5,7 @@ public class RegisterDTO {
     private String password;
     private String passwordRepeat;
     private String email;
-    private String verify;
+    private String captcha;
 
     public String getUsername() {
         return username;
@@ -39,11 +39,11 @@ public class RegisterDTO {
         this.email = email;
     }
 
-    public String getVerify() {
-        return verify;
+    public String getCaptcha() {
+        return captcha;
     }
 
-    public void setVerify(String verify) {
-        this.verify = verify;
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
     }
 }
