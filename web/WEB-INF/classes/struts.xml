@@ -23,7 +23,7 @@
         </action>
         <action name="new" class="register" method="register">
             <result name="success" type="json">
-                <param name="root">registerBackDTO</param>
+                <param name="root">registerBack</param>
             </result>
         </action>
         <action name="captcha" class="register" method="getCaptchaImg">

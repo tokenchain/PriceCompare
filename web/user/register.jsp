@@ -89,10 +89,6 @@
                             notEmpty: {
                                 message: '请填写验证码'
                             },
-                            regexp: {
-                                regexp: /^[a-zA-Z0-9]{3,5}$/,
-                                message: '请填写正确的验证码'
-                            },
                         }
                     },
                 }
@@ -112,7 +108,17 @@
                             {username:$("#inputUsername").val(),password:$("#inputPassword").val(),passwordRepeat:$("#inputPasswordRepeat").val(),
                                 email:$("#inputEmail").val(),captcha:$("#captcha").val()},
                             function (data) {
-                                alert(data);
+                                //alert(data);
+                                if(data == 0) {
+                                    alert("注册成功！");
+                                    //页面跳转
+                                } else {
+                                    if(data == 1) {
+                                        alert("请输入正确的验证码");
+                                    }
+                                    alert(data);
+                                    captchaRefresh();
+                                }
                             },"json")
                     }
                 })
@@ -225,7 +231,7 @@
                 <div class="form-group">
                     <div class="col-md-2"></div>
                     <label class="col-md-2 control-label" for="captcha">验证码</label>
-                    <div class="col-md-3">
+                    <div class="col-md-3" style="margin-bottom: 5px">
                         <input id="captcha" type="text" class="form-control" name="captcha" autocomplete="off" spellcheck="false"/>
                     </div>
                     <div class="col-md-1"><img id="captchaImg" class="img-rounded" style="display: block;height:30px;max-height:100%;width: auto;max-width:100%" src="#"></div>
