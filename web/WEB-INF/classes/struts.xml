@@ -8,18 +8,23 @@
     <!--打开开发模式-->
     <constant name="struts.devMode" value="true" />
 
-    <!--设置默认action-->
-    <!--<package name="default" namespace="/" extends="struts-default">
-        <default-action-ref name="index"></default-action-ref>
-        <action name="index">
-            <result type="redirect">/login.jsp</result>
-        </action>
-    </package>-->
-
     <package name="main" namespace="/main" extends="struts-default,json-default">
         <action name="index" class="index">
             <result name="success">/main/index.jsp</result>
         </action>
     </package>
 
+    <package name="user" namespace="/user" extends="struts-default,json-default">
+        <action name="login" class="login">
+            <result name="success">/user/login.jsp</result>
+        </action>
+        <action name="reg" class="register">
+            <result name="success">/user/register.jsp</result>
+        </action>
+        <action name="new" class="register" method="register">
+            <result name="success" type="json">
+                <param name="root">registerBackDTO</param>
+            </result>
+        </action>
+    </package>
 </struts>

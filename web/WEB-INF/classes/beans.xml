@@ -56,10 +56,6 @@
         <tx:attributes>
             <tx:method name="get*" read-only="true"/>
             <tx:method name="login" read-only="true"/>
-            <tx:method name="validate" read-only="true"/>
-            <tx:method name="is*" read-only="true"/>
-            <tx:method name="totalCount" read-only="true"/>
-            <tx:method name="search*" read-only="true"/>
             <tx:method name="register" propagation="REQUIRED"/>
             <tx:method name="add*" propagation="REQUIRED"/>
             <tx:method name="save*" propagation="REQUIRED"/>
