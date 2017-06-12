@@ -19,6 +19,16 @@ public class UserDAO {
         session.save(user);
     }
 
+    public boolean isEmailUsed(String email) throws SQLException {
+        Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery("select count(*) from user u where u.email = :email") ;
+        q.setParameter("email",email);
+        if((Long)q.uniqueResult() > 0) {
+            return true;
+        }
+        return false;
+    }
+
     public void active(String code) throws SQLException {
         Session session = sessionFactory.getCurrentSession();
         Query q = session.createQuery("update user u set u.state = :state where u.active_code = :code") ;

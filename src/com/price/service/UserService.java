@@ -21,18 +21,22 @@ public class UserService {
     /*
     * 保存成功返回0
     * 验证码错误返回1
-    * 密码不一致返回2
-    * 用户信息有误返回3
+    * 邮箱已被注册返回2
+    * 用户信息异常返回3
     * */
     public byte save(RegisterDTO registerDTO, String captchaCode) {
         byte returnCode = verify(registerDTO, captchaCode);
         if(returnCode == 0) {
+            //验证邮箱是否被注册
+            if(isEmailUsed(registerDTO.getEmail())) {
+                return 2;
+            }
             UUID uuid = UUID.randomUUID();
             //System.out.println(uuid);
             User user = new User(registerDTO.getUsername(), registerDTO.getPassword(), registerDTO.getEmail(),
                     (byte)0, uuid.toString());
             if(save(user)) {
-                //发送
+                //发送激活邮件
                 sendActiveMail(registerDTO.getEmail(), uuid.toString());
                 return 0;
             } else {
@@ -54,16 +58,24 @@ public class UserService {
         return false;
     }
 
+    /*邮箱是否已被注册*/
+    private boolean isEmailUsed(String email) {
+        try {
+            return userDAO.isEmailUsed(email);
+        } catch (SQLException e) {
+            return true;
+        }
+    }
+
     /* *验证表单信息格式
-    *  密码输入不一致返回2
+    *  密码输入不一致返回3
     *  验证码不正确返回1
     *  验证通过返回0
     * */
     private byte verify(RegisterDTO registerDTO, String captchaCodeSrc) {
         if(registerDTO.getPassword() == null || !registerDTO.getPassword().equals(registerDTO.getPasswordRepeat())) {
-            return 2;
+            return 3;
         }
-
         String captchaCode = registerDTO.getCaptcha().toLowerCase();
         System.out.println("解码前：" + captchaCode + "|" + captchaCodeSrc);
         dec=new BASE64Decoder();

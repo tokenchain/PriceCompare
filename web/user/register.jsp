@@ -89,17 +89,15 @@
                             notEmpty: {
                                 message: '请填写验证码'
                             },
+                            error:  {
+                                message: '验证码错误'
+                            }
                         }
                     },
                 }
             });
 
         });
-
-        //点击按钮
-        /*$(function () {
-            $("#register").click(submitForm())
-        })*/
 
         //表单提交
         function submitForm() {
@@ -119,8 +117,11 @@
                         } else {
                             if(data == 1) {
                                 alert("请输入正确的验证码");
+                            } else if(data == 2) {
+                                alert("邮箱已被注册");
+                            } else {
+                                alert("用户信息异常");
                             }
-                            alert(data);
                             captchaRefresh();
                         }
                     },"json");
