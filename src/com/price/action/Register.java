@@ -24,6 +24,7 @@ public class Register extends ActionSupport implements ModelDriven {
     private RegisterDTO registerDTO;
     private Byte registerBack;
     private String captchaName;
+    private String activeCode;
 
     @Override
     public String execute() throws Exception {
@@ -37,6 +38,12 @@ System.out.println(registerDTO.getCaptcha());
         byte returnCode = userService.save(registerDTO, captchaCode);
         registerBack = returnCode;
         session.remove("captcha_register");
+        return SUCCESS;
+    }
+
+    public String active() throws Exception {
+System.out.println(activeCode);
+        userService.active(activeCode);
         return SUCCESS;
     }
 
@@ -67,5 +74,9 @@ System.out.println(registerDTO.getCaptcha());
 
     public String getCaptchaName() {
         return captchaName;
+    }
+
+    public void setActiveCode(String activeCode) {
+        this.activeCode = activeCode;
     }
 }

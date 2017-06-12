@@ -31,5 +31,8 @@
                 <param name="root">captchaName</param>
             </result>
         </action>
+        <action name="active" class="register" method="active">
+            <result name="success">/user/login.jsp</result>
+        </action>
     </package>
 </struts>

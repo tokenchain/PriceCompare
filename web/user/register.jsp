@@ -8,7 +8,7 @@
     <link href="../css/formValidation.min.css">
     <script type="text/javascript" src="../jslib/jquery-3.2.0.js"></script>
     <script type="text/javascript" src="../jslib/bootstrap.js"></script>
-    <script type="text/javascript" src="../jslib/formValidation.min.js"></script>
+    <script type="text/javascript" src="../jslib/formValidation.js"></script>
     <script type="text/javascript" src="../jslib/framework/bootstrap.min.js"></script>
     <script>
         //获取验证码
@@ -93,36 +93,39 @@
                     },
                 }
             });
+
         });
 
+        //点击按钮
+        /*$(function () {
+            $("#register").click(submitForm())
+        })*/
+
         //表单提交
-        $(function () {
-            $("#register").click(function () {
-                    // 获取表单
-                    var formValidation = $("#registerForm").data('formValidation');
-                    // 重新验证表单
-                    formValidation.validate();
-                    if(formValidation.isValid()){
-                        //alert("1");
-                        $.post("//localhost:8080/user/new",
-                            {username:$("#inputUsername").val(),password:$("#inputPassword").val(),passwordRepeat:$("#inputPasswordRepeat").val(),
-                                email:$("#inputEmail").val(),captcha:$("#captcha").val()},
-                            function (data) {
-                                //alert(data);
-                                if(data == 0) {
-                                    alert("注册成功！");
-                                    //页面跳转
-                                } else {
-                                    if(data == 1) {
-                                        alert("请输入正确的验证码");
-                                    }
-                                    alert(data);
-                                    captchaRefresh();
-                                }
-                            },"json")
-                    }
-                })
-        })
+        function submitForm() {
+            // 获取表单
+            var formValidation = $("#registerForm").data('formValidation');
+            // 重新验证表单
+            formValidation.validate();
+            if(formValidation.isValid()){
+                $.post("//localhost:8080/user/new",
+                    {username:$("#inputUsername").val(),password:$("#inputPassword").val(),passwordRepeat:$("#inputPasswordRepeat").val(),
+                        email:$("#inputEmail").val(),captcha:$("#captcha").val()},
+                    function (data) {
+                        //alert(data);
+                        if(data == 0) {
+                            //alert("注册成功！");
+                            window.location.href="http://localhost:8080/user/registerSuccess.jsp";
+                        } else {
+                            if(data == 1) {
+                                alert("请输入正确的验证码");
+                            }
+                            alert(data);
+                            captchaRefresh();
+                        }
+                    },"json");
+            }
+        }
 
         //验证码刷新
         function captchaRefresh() {
@@ -190,7 +193,7 @@
     <%--表格-------------------------------%>
     <div class="row-fluid">
         <div class="col-md-12">
-            <form class="form-horizontal" role="form" id="registerForm">
+            <form class="form-horizontal" role="form" id="registerForm" onkeydown="if(event.keyCode==13){submitForm();return false;}">
                 <%--用户名-------------------------------%>
                 <div class="form-group">
                     <div class="col-md-2"></div>
@@ -241,7 +244,7 @@
                 <div class="form-group">
                     <div class="col-md-2"></div>
                     <div class="col-md-offset-2 col-md-4">
-                        <button id="register" type="submit" class="btn btn-primary" onclick="return false">注册</button>
+                        <button id="register" type="submit" class="btn btn-primary" onclick="submitForm();return false;">注册</button>
                     </div>
                     <div class="col-md-4"></div>
                 </div>

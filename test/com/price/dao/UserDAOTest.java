@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.AbstractTransactionalJUnit4Spring
 
 import javax.annotation.Resource;
 import java.sql.SQLException;
+import java.util.UUID;
 
 @ContextConfiguration("/beans.xml")
 public class UserDAOTest  extends AbstractTransactionalJUnit4SpringContextTests {
@@ -16,7 +17,9 @@ public class UserDAOTest  extends AbstractTransactionalJUnit4SpringContextTests 
 
     @Test
     public void saveTest() throws SQLException {
-        User u = new User("name", "pwd", "email", (byte)1, "active");
+        UUID uuid = UUID.randomUUID();
+        System.out.println(uuid);
+        User u = new User("name", "pwd", "email", (byte)1, uuid.toString());
         userDAO.save(u);
     }
 

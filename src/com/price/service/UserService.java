@@ -3,12 +3,14 @@ package com.price.service;
 import com.price.dao.UserDAO;
 import com.price.dto.RegisterDTO;
 import com.price.model.User;
+import com.price.util.MailUtil;
 import org.springframework.stereotype.Component;
 import sun.misc.BASE64Decoder;
 
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.UUID;
 
 @Component("userService")
 public class UserService {
@@ -25,9 +27,13 @@ public class UserService {
     public byte save(RegisterDTO registerDTO, String captchaCode) {
         byte returnCode = verify(registerDTO, captchaCode);
         if(returnCode == 0) {
+            UUID uuid = UUID.randomUUID();
+            //System.out.println(uuid);
             User user = new User(registerDTO.getUsername(), registerDTO.getPassword(), registerDTO.getEmail(),
-                    (byte)0, "active_code");
+                    (byte)0, uuid.toString());
             if(save(user)) {
+                //发送
+                sendActiveMail(registerDTO.getEmail(), uuid.toString());
                 return 0;
             } else {
                 return 3;
@@ -96,6 +102,21 @@ public class UserService {
             return false;
         }
         if(!user.getEmail().matches("^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w+)+)$")) {
+            return false;
+        }
+        return true;
+    }
+
+    /*发送激活邮件
+    * */
+    public void sendActiveMail(String email, String code) {
+        new Thread(new MailUtil(email, code)).start();
+    }
+
+    public boolean active(String code) {
+        try {
+            userDAO.active(code);
+        } catch (SQLException e) {
             return false;
         }
         return true;
