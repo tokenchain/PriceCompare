@@ -18,6 +18,20 @@
         <action name="login" class="login">
             <result name="success">/user/login.jsp</result>
         </action>
+        <action name="signIn" class="login" method="login">
+            <result name="success" type="json">
+                <param name="root">loginBack</param>
+            </result>
+        </action>
+        <action name="homepage" class="homepage">
+            <result name="success">/user/homepage.jsp</result>
+        </action>
+        <action name="signOut" class="login" method="logout">
+            <result name="success" type="chain">
+                <param name="namespace">/main</param>
+                <param name="actionname">index</param>
+            </result>
+        </action>
         <action name="reg" class="register">
             <result name="success">/user/register.jsp</result>
         </action>
@@ -32,7 +46,7 @@
             </result>
         </action>
         <action name="active" class="register" method="active">
-            <result name="success">/user/login.jsp</result>
+            <result name="success" type="redirectAction">login</result>
         </action>
     </package>
 </struts>

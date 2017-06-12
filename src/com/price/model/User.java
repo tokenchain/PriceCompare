@@ -30,6 +30,15 @@ public class User {
         this.active_code = active_code;
     }
 
+    public User(int id, String username, String password, String email, byte state, String active_code) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.state = state;
+        this.active_code = active_code;
+    }
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     public int getId() {

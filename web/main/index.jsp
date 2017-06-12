@@ -1,4 +1,10 @@
+<%@ page import="com.price.model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%
+    String hasLogin = (String)session.getAttribute("hasLogin");
+    User user = (User) session.getAttribute("userInfo");
+%>
 <html>
 <head>
     <title>京东优选</title>
@@ -44,8 +50,19 @@
                 </ul>
             </div>
             <ul class="nav navbar-nav navbar-right">
+                <%
+                    if(hasLogin == null) {
+                %>
                 <li><a href="//localhost:8080/user/login"><span class="glyphicon glyphicon-log-in"></span> 登录</a></li>
                 <li><a href="//localhost:8080/user/reg"><span class="glyphicon glyphicon-user"></span> 注册</a></li>
+                <%
+                    } else {
+                %>
+                <li><a href="//localhost:8080/user/homepage"><span class="glyphicon glyphicon-user"></span> <%=user.getUsername()%></a></li>
+                <li><a href="//localhost:8080/user/signOut"><span class="glyphicon glyphicon-log-out"></span> 注销</a></li>
+                <%
+                    }
+                %>
             </ul>
         </div>
     </nav>

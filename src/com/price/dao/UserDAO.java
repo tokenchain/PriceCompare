@@ -37,4 +37,14 @@ public class UserDAO {
         q.executeUpdate();
     }
 
+    public User hasUser(String email, String password) {
+        User u = null;
+        Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery("select new com.price.model.User(u.id, u.username, u.password, u.email, u.state, u.active_code ) from user u where u.email = :email and u.password = :password") ;
+        q.setParameter("email", email);
+        q.setParameter("password", password);
+        u = (User)q.uniqueResult();
+        return u;
+    }
+
 }

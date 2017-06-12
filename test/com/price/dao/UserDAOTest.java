@@ -23,5 +23,10 @@ public class UserDAOTest  extends AbstractTransactionalJUnit4SpringContextTests 
         userDAO.save(u);
     }
 
+    @Test
+    public void hasUserTest() throws Exception {
+        User u = userDAO.hasUser("2414170303@qq.com", "123");
+        System.out.println(u.getActive_code() + "|" + u.getState());
+    }
 
 }

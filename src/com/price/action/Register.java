@@ -32,7 +32,7 @@ public class Register extends ActionSupport implements ModelDriven {
     }
 
     public String register() throws Exception {
-System.out.println(registerDTO.getCaptcha());
+//System.out.println(registerDTO.getCaptcha());
         Map session = ActionContext.getContext().getSession();
         String captchaCode = (String)session.get("captcha_register");
         byte returnCode = userService.save(registerDTO, captchaCode);
@@ -42,7 +42,7 @@ System.out.println(registerDTO.getCaptcha());
     }
 
     public String active() throws Exception {
-System.out.println(activeCode);
+//System.out.println(activeCode);
         userService.active(activeCode);
         return SUCCESS;
     }

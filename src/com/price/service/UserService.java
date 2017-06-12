@@ -58,6 +58,13 @@ public class UserService {
         return false;
     }
 
+    public User login(String email, String password) {
+        if(verify(email, password)) {
+            return userDAO.hasUser(email, password);
+        }
+        return null;
+    }
+
     /*邮箱是否已被注册*/
     private boolean isEmailUsed(String email) {
         try {
@@ -77,7 +84,7 @@ public class UserService {
             return 3;
         }
         String captchaCode = registerDTO.getCaptcha().toLowerCase();
-        System.out.println("解码前：" + captchaCode + "|" + captchaCodeSrc);
+        //System.out.println("解码前：" + captchaCode + "|" + captchaCodeSrc);
         dec=new BASE64Decoder();
         if(captchaCode == null || captchaCodeSrc == null) {
             return 1;
@@ -93,7 +100,7 @@ public class UserService {
             } catch (IOException e) {
                 return 1;
             }
-            System.out.println("解码后：" + captchaCode + "|" + captchaCodeSrc);
+            //System.out.println("解码后：" + captchaCode + "|" + captchaCodeSrc);
             if(!captchaCode.equals(captchaCodeSrc)) {
                 return 1;
             }
@@ -114,6 +121,21 @@ public class UserService {
             return false;
         }
         if(!user.getEmail().matches("^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w+)+)$")) {
+            return false;
+        }
+        return true;
+    }
+
+    /*
+    * 验证登录信息
+    * email
+    * paddword
+    * */
+    private boolean verify(String email, String password) {
+        if(!email.matches("^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w+)+)$")) {
+            return false;
+        }
+        if(!password.matches("^[a-zA-Z0-9_]{3,20}$")) {
             return false;
         }
         return true;
