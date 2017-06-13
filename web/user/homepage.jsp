@@ -9,8 +9,20 @@
     <script>
         $(function () {
             $("#modifyUsername").click(function () {
-                if(verifyUnername($("#newUsername").val())) {
-                    alert("ok");
+                var newUsername = $("#newUsername").val();
+                if(verifyUsername(newUsername)) {
+                    $.post("//localhost:8080/user/modifyUsername",{'newUsername': newUsername},
+                        function (data) {
+                        switch(data) {
+                            //修改成功
+                            case 0:location.reload(true);break;
+                            //新旧用户名相同
+                            case 1:$("#prompt").text("新用户名与旧用户名相同");break;
+                            //修改失败
+                            case 2:;
+                            default:$("#prompt").text("修改失败");break;
+                        }
+                        },"json");
                 }
 
             })
@@ -20,7 +32,8 @@
             })
         })
 
-        function verifyUnername(data) {
+        function verifyUsername(data) {
+            var oldUsername = $("#oldUsername").val();
             if(data.trim() == "") {
                 $("#prompt").text("用户名不能为空");
                 return false;
@@ -32,6 +45,10 @@
             var regex = /^[a-zA-Z0-9_\u4E00-\u9FA5]+$/;
             if(regex.test(data) != true) {
                 $("#prompt").text("用户名格式有误");
+                return false;
+            }
+            if(oldUsername == data) {
+                $("#prompt").text("新用户名与旧用户名相同");
                 return false;
             }
             return true;
@@ -61,7 +78,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-1">
                 <div class="list-group">
-                    <a href="//localhost:8080/user/homepage" class="list-group-item active">个人账户</a>
+                    <a href="//localhost:8080/user/homepage" class="list-group-item active">个人账号</a>
                     <a href="//localhost:8080/user/colletions" class="list-group-item">商品收藏<span class="badge"></span></a>
                     <a href="//localhost:8080/user/security" class="list-group-item">安全设置</a>
                 </div>
@@ -75,7 +92,13 @@
                         <div class="col-md-2 col-sm-2 col-xs-3 text-nowrap">用 户 名：</div>
                         <div class="col-md-8 col-sm-8 col-xs-6 text-nowrap"><%=user.getUsername()%></div>
                         <div class="col-md-2 col-sm-2 col-xs-3 text-nowrap">
+                            <%
+                                if(!user.isUsername_changed()) {
+                            %>
                             <a id="modal-408253"  href="#modal-container-408253" data-toggle="modal" style="font-size: small">修改用户名</a>
+                            <%
+                                }
+                            %>
                         </div>
                     </div>
                     <div class="panel-body">
@@ -105,6 +128,7 @@
             </div>
             <div class="modal-body">
                 <div>请输入新的用户名：</div>
+                <div style="display: none"><input id="oldUsername" type="text" value=<%=user.getUsername()%>></div>
                 <div style="padding-top: 10px"><input id="newUsername" type="text" class="form-control" name="username" autocomplete="off"  spellcheck="false"/></div>
                 <div style="font-size: small">*用户名只能修改一次</div>
                 <div id="prompt" style="font-size: small;color: #F00;"></div>

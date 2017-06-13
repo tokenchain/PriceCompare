@@ -8,30 +8,64 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <script>
         $(function () {
-            $("#modifyUsername").click(function () {
-                if(verifyUnername($("#newUsername").val())) {
-                    alert("ok");
+            $("#modifyPassword").click(function () {
+                var oldPassword = $("#oldPassword").val();
+                var newPassword = $("#newPassword").val();
+                var newPasswordRepeat = $("#newPasswordRepeat").val();
+                if(verifyPassword(newPassword, newPasswordRepeat, oldPassword)) {
+                    $.post("//localhost:8080/user/modifyPassword",
+                        {"oldPassword":oldPassword,"newPassword":newPassword,"newPasswordRepeat":newPasswordRepeat,},
+                        function (data) {
+                            switch(data) {
+                                //修改成功
+                                case 0 :location.reload(true);break;
+                                //密码错误
+                                case 1 :$("#prompt").text("原密码错误");break;
+                                //新旧密码相同
+                                case 2 :$("#prompt").text("新旧密码相同");break;
+                                //密码不一致
+                                case 3 :$("#prompt").text("密码不一致");break;
+                                //修改失败
+                                case 4 :;
+                                default :$("#prompt").text("修改失败");break;
+                            }
+
+                        })
                 }
 
             })
 
-            $("#newUsername").focus(function () {
+            $("#oldPassword").focus(function () {
+                $("#prompt").text("");
+            })
+            $("#newPassword").focus(function () {
+                $("#prompt").text("");
+            })
+            $("#newPasswordRepeat").focus(function () {
                 $("#prompt").text("");
             })
         })
 
-        function verifyUnername(data) {
-            if(data.trim() == "") {
-                $("#prompt").text("用户名不能为空");
+        function verifyPassword(newPassword , newPasswordRepeat, oldPassword) {
+            if(newPassword.trim() == "" || oldPassword.trim() == "") {
+                $("#prompt").text("密码不能为空");
                 return false;
             }
-            if(data.length < 3 || data.length > 15) {
-                $("#prompt").text("用户名长度须在3-15之间");
+            if(newPassword.length < 3 || newPassword.length > 20) {
+                $("#prompt").text("密码长度须在3-20之间");
                 return false;
             }
-            var regex = /^[a-zA-Z0-9_\u4E00-\u9FA5]+$/;
-            if(regex.test(data) != true) {
-                $("#prompt").text("用户名格式有误");
+            var regex = /^[a-zA-Z0-9_]+$/;
+            if(regex.test(newPassword) != true) {
+                $("#prompt").text("密码格式有误");
+                return false;
+            }
+            if(newPassword != newPasswordRepeat) {
+                $("#prompt").text("两次密码输入不相同");
+                return false;
+            }
+            if(newPassword == oldPassword) {
+                $("#prompt").text("新密码与原密码相同");
                 return false;
             }
             return true;
@@ -61,7 +95,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-1">
                 <div class="list-group">
-                    <a href="//localhost:8080/user/homepage" class="list-group-item">个人账户</a>
+                    <a href="//localhost:8080/user/homepage" class="list-group-item">个人账号</a>
                     <a href="//localhost:8080/user/colletions" class="list-group-item">商品收藏<span class="badge"></span></a>
                     <a href="//localhost:8080/user/security" class="list-group-item active">安全设置</a>
                 </div>
@@ -92,17 +126,17 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <div>请输入旧密码：</div>
-                <div style="padding-top: 10px"><input id="oldPassword" type="text" class="form-control" name="username" autocomplete="off"  spellcheck="false"/></div>
+                <div>请输入原密码：</div>
+                <div style="padding-top: 10px"><input id="oldPassword" type="text" class="form-control" name="oldPassword" autocomplete="off"  spellcheck="false"/></div>
 
                 <div style="padding-top: 10px">请输入新密码：</div>
-                <div style="padding-top: 10px"><input id="newPassword" type="text" class="form-control" name="username" autocomplete="off"  spellcheck="false"/></div>
+                <div style="padding-top: 10px"><input id="newPassword" type="text" class="form-control" name="newPassword" autocomplete="off"  spellcheck="false"/></div>
                 <div style="padding-top: 10px">请再次输入新密码：</div>
-                <div style="padding-top: 10px"><input id="newPasswordRepeat" type="text" class="form-control" name="username" autocomplete="off"  spellcheck="false"/></div>
+                <div style="padding-top: 10px"><input id="newPasswordRepeat" type="text" class="form-control" name="newPasswordRepeat" autocomplete="off"  spellcheck="false"/></div>
                 <div id="prompt" style="font-size: small;color: #F00;"></div>
             </div>
             <div class="modal-footer">
-                <button id="modifyUsername" type="button" class="btn btn-primary">修改</button>
+                <button id="modifyPassword" type="button" class="btn btn-primary">修改</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>

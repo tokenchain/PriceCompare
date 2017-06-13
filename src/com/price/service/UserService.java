@@ -59,8 +59,12 @@ public class UserService {
     }
 
     public User login(String email, String password) {
-        if(verify(email, password)) {
-            return userDAO.hasUser(email, password);
+        try {
+            if(verify(email, password)) {
+                return userDAO.hasUser(email, password);
+            }
+        } catch (SQLException e) {
+            return null;
         }
         return null;
     }
@@ -129,12 +133,34 @@ public class UserService {
     /*
     * 验证登录信息
     * email
-    * paddword
+    * password
     * */
     private boolean verify(String email, String password) {
         if(!email.matches("^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w+)+)$")) {
             return false;
         }
+        if(!password.matches("^[a-zA-Z0-9_]{3,20}$")) {
+            return false;
+        }
+        return true;
+    }
+
+    /*
+    * 修改用户名验证格式
+    * username
+    * */
+    private boolean verifyUsername(String username) {
+        if(!username.matches("^[a-zA-Z0-9_\\u4E00-\\u9FA5]{3,15}$")) {
+            return false;
+        }
+        return true;
+    }
+
+    /*
+    * 修改密码验证格式
+    * username
+    * */
+    private boolean verifyPassword(String password) {
         if(!password.matches("^[a-zA-Z0-9_]{3,20}$")) {
             return false;
         }
@@ -147,9 +173,42 @@ public class UserService {
         new Thread(new MailUtil(email, code)).start();
     }
 
+    /*激活账号
+    * */
     public boolean active(String code) {
         try {
             userDAO.active(code);
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /*修改用户名
+    * */
+    public boolean changeUsername(int id, String username) {
+        if(username == null && !verifyUsername(username)) {
+            return false;
+        }
+        try {
+            if(userDAO.usernameChanged(id)) {
+            return false;
+            }
+            userDAO.modifyUsername(id, username);
+        } catch (SQLException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /*修改密码
+    * */
+    public boolean changePassword(int id, String password) {
+        if(password ==null || !verifyPassword(password)) {
+            return false;
+        }
+        try {
+            userDAO.modifyPassword(id, password);
         } catch (SQLException e) {
             return false;
         }

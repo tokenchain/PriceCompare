@@ -19,6 +19,7 @@ public class User {
     private byte state;
     /*邮箱激活码*/
     private String active_code;
+    private boolean username_changed;
 
     public User() {}
 
@@ -30,13 +31,14 @@ public class User {
         this.active_code = active_code;
     }
 
-    public User(int id, String username, String password, String email, byte state, String active_code) {
+    public User(int id, String username, String password, String email, byte state, String active_code, boolean username_changed) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.state = state;
         this.active_code = active_code;
+        this.username_changed = username_changed;
     }
 
     @Id
@@ -88,4 +90,14 @@ public class User {
     public void setActive_code(String active_code) {
         this.active_code = active_code;
     }
+
+    public boolean isUsername_changed() {
+        return username_changed;
+    }
+
+    public void setUsername_changed(boolean username_changed) {
+        this.username_changed = username_changed;
+    }
+
+
 }

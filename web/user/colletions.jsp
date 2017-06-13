@@ -61,7 +61,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-1">
                 <div class="list-group">
-                    <a href="//localhost:8080/user/homepage" class="list-group-item">个人账户</a>
+                    <a href="//localhost:8080/user/homepage" class="list-group-item">个人账号</a>
                     <a href="//localhost:8080/user/colletions" class="list-group-item active">商品收藏<span class="badge"></span></a>
                     <a href="//localhost:8080/user/security" class="list-group-item">安全设置</a>
                 </div>

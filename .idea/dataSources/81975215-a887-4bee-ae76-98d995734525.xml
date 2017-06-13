@@ -172,23 +172,28 @@
       <Position>6</Position>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <index id="57" parent="21" name="user_id_uindex">
+    <column id="57" parent="21" name="username_changed">
+      <Position>7</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="58" parent="21" name="user_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="58" parent="21" name="user_email_uindex">
+    <index id="59" parent="21" name="user_email_uindex">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="59" parent="21" name="PRIMARY">
+    <key id="60" parent="21" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="60" parent="21" name="user_id_uindex">
+    <key id="61" parent="21" name="user_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>user_id_uindex</UnderlyingIndexName>
     </key>
-    <key id="61" parent="21" name="user_email_uindex">
+    <key id="62" parent="21" name="user_email_uindex">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>user_email_uindex</UnderlyingIndexName>
     </key>
