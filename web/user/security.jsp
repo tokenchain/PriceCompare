@@ -61,9 +61,9 @@
             <div class="col-md-2"></div>
             <div class="col-md-1">
                 <div class="list-group">
-                    <a href="//localhost:8080/user/homepage" class="list-group-item active">个人账户</a>
+                    <a href="//localhost:8080/user/homepage" class="list-group-item">个人账户</a>
                     <a href="//localhost:8080/user/colletions" class="list-group-item">商品收藏<span class="badge"></span></a>
-                    <a href="//localhost:8080/user/security" class="list-group-item">安全设置</a>
+                    <a href="//localhost:8080/user/security" class="list-group-item active">安全设置</a>
                 </div>
             </div>
             <div class="col-md-6">
@@ -72,19 +72,7 @@
                         <img src="../img/head.png" alt="120x120" class="img-circle" style="display: block;width: auto;max-width:10%" />
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-2 col-sm-2 col-xs-3 text-nowrap">用 户 名：</div>
-                        <div class="col-md-8 col-sm-8 col-xs-6 text-nowrap"><%=user.getUsername()%></div>
-                        <div class="col-md-2 col-sm-2 col-xs-3 text-nowrap">
-                            <a id="modal-408253"  href="#modal-container-408253" data-toggle="modal" style="font-size: small">修改用户名</a>
-                        </div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-md-2 col-sm-2 col-xs-3 text-nowrap">邮 箱：</div>
-                        <div class="col-md-8 col-sm-8 col-xs-6 text-nowrap"><%=user.getEmail()%></div>
-                        <div class="col-md-2 col-sm-2 col-xs-3 text-nowrap"></div>
-                    </div>
-                    <div class="panel-footer">
-                        <a href="//localhost:8080/user/signOut">退出账户</a>
+                        <a id="modal-408253"  href="#modal-container-408253" data-toggle="modal" style="font-size: small">修改密码</a>
                     </div>
                 </div>
 
@@ -100,13 +88,17 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="myModalLabel">
-                    修改用户名
+                    修改密码
                 </h4>
             </div>
             <div class="modal-body">
-                <div>请输入新的用户名：</div>
-                <div style="padding-top: 10px"><input id="newUsername" type="text" class="form-control" name="username" autocomplete="off"  spellcheck="false"/></div>
-                <div style="font-size: small">*用户名只能修改一次</div>
+                <div>请输入旧密码：</div>
+                <div style="padding-top: 10px"><input id="oldPassword" type="text" class="form-control" name="username" autocomplete="off"  spellcheck="false"/></div>
+
+                <div style="padding-top: 10px">请输入新密码：</div>
+                <div style="padding-top: 10px"><input id="newPassword" type="text" class="form-control" name="username" autocomplete="off"  spellcheck="false"/></div>
+                <div style="padding-top: 10px">请再次输入新密码：</div>
+                <div style="padding-top: 10px"><input id="newPasswordRepeat" type="text" class="form-control" name="username" autocomplete="off"  spellcheck="false"/></div>
                 <div id="prompt" style="font-size: small;color: #F00;"></div>
             </div>
             <div class="modal-footer">

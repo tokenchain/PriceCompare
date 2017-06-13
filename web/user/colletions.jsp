@@ -61,8 +61,8 @@
             <div class="col-md-2"></div>
             <div class="col-md-1">
                 <div class="list-group">
-                    <a href="//localhost:8080/user/homepage" class="list-group-item active">个人账户</a>
-                    <a href="//localhost:8080/user/colletions" class="list-group-item">商品收藏<span class="badge"></span></a>
+                    <a href="//localhost:8080/user/homepage" class="list-group-item">个人账户</a>
+                    <a href="//localhost:8080/user/colletions" class="list-group-item active">商品收藏<span class="badge"></span></a>
                     <a href="//localhost:8080/user/security" class="list-group-item">安全设置</a>
                 </div>
             </div>
@@ -72,19 +72,11 @@
                         <img src="../img/head.png" alt="120x120" class="img-circle" style="display: block;width: auto;max-width:10%" />
                     </div>
                     <div class="panel-body">
-                        <div class="col-md-2 col-sm-2 col-xs-3 text-nowrap">用 户 名：</div>
-                        <div class="col-md-8 col-sm-8 col-xs-6 text-nowrap"><%=user.getUsername()%></div>
-                        <div class="col-md-2 col-sm-2 col-xs-3 text-nowrap">
-                            <a id="modal-408253"  href="#modal-container-408253" data-toggle="modal" style="font-size: small">修改用户名</a>
-                        </div>
+
                     </div>
-                    <div class="panel-body">
-                        <div class="col-md-2 col-sm-2 col-xs-3 text-nowrap">邮 箱：</div>
-                        <div class="col-md-8 col-sm-8 col-xs-6 text-nowrap"><%=user.getEmail()%></div>
-                        <div class="col-md-2 col-sm-2 col-xs-3 text-nowrap"></div>
-                    </div>
+
                     <div class="panel-footer">
-                        <a href="//localhost:8080/user/signOut">退出账户</a>
+
                     </div>
                 </div>
 

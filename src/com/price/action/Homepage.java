@@ -18,8 +18,12 @@ public class Homepage extends ActionSupport implements ModelDriven {
     public String execute() throws Exception {
         Map session = ActionContext.getContext().getSession();
         User user = (User)session.get("userInfo");
-        System.out.println(user.getId());
-        return SUCCESS;
+        if(user != null) {
+            System.out.println(user.getId());
+            return SUCCESS;
+        } else {
+            return ERROR;
+        }
     }
 
     @Override

@@ -23,6 +23,7 @@ public class Login extends ActionSupport implements ModelDriven {
     * 登录返回信息
     * 0代表登陆失败
     * 1代表登录成功
+    * 2代表账号未激活
     * */
     private byte loginBack;
 
@@ -36,6 +37,10 @@ System.out.println(loginDTO.getEmail());
         User user = userService.login(loginDTO.getEmail(), loginDTO.getPassword());
         if (user == null) {
             loginBack = 0;
+            return SUCCESS;
+        }
+        if(user.getState() == 0) {
+            loginBack = 2;
             return SUCCESS;
         }
         Map session = ActionContext.getContext().getSession();
