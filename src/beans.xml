@@ -60,6 +60,7 @@
             <tx:method name="active" propagation="REQUIRED"/>
             <tx:method name="add*" propagation="REQUIRED"/>
             <tx:method name="change*" propagation="REQUIRED"/>
+            <tx:method name="search*" propagation="REQUIRED"/>
             <tx:method name="save*" propagation="REQUIRED"/>
             <tx:method name="delete*" propagation="REQUIRED"/>
             <tx:method name="modify*" propagation="REQUIRED"/>
@@ -73,6 +74,6 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-
+    <bean id="LuceneWriterLockListener" class="com.price.listener.LuceneWriterLockListener"></bean>
 
 </beans>

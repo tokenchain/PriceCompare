@@ -14,6 +14,16 @@
         </action>
     </package>
 
+    <package name="search" namespace="/search" extends="struts-default,json-default">
+        <action name="search" class="search">
+            <result name="success">/search/searchResult.jsp</result>
+            <result name="json" type="json">
+                <param name="root">searchResultDTO</param>
+            </result>
+        </action>
+
+    </package>
+
     <package name="user" namespace="/user" extends="struts-default,json-default">
         <action name="login" class="login">
             <result name="success">/user/login.jsp</result>

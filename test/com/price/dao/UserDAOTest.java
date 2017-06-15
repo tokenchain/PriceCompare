@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 @ContextConfiguration("/beans.xml")
-public class UserDAOTest  extends AbstractTransactionalJUnit4SpringContextTests {
+public class UserDAOTest extends AbstractTransactionalJUnit4SpringContextTests {
     @Autowired
     UserDAO userDAO;
 

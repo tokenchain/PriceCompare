@@ -9,6 +9,18 @@
     <script type="text/javascript" src="../jslib/jquery-3.2.0.js"></script>
     <script type="text/javascript" src="../jslib/bootstrap.js"></script>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        $(function () {
+            $("#searchSubmit").click(function () {
+                $("#searchForm").submit();
+            })
+            $("#searchInputBar").keydown(function (event) {
+                if(event.keyCode == 13) {
+                    $("#searchForm").submit();
+                }
+            })
+        })
+    </script>
 </head>
 <body>
     <%--导航栏-------------------------------%>
@@ -25,11 +37,12 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div style="padding: 80px 100px 10px;">
-                    <form class="bs-example bs-example-form" role="form">
+                    <form id="searchForm" class="bs-example bs-example-form" role="form" action="http://localhost:8080/search/search">
                         <div class="input-group">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="page" value="1" style="display: none">
+                            <input type="text" class="form-control" id="searchInputBar" name="keyword">
                             <span class="input-group-btn">
-                                  <button class="btn btn-default" type="button">搜索</button>
+                                  <button id="searchSubmit" class="btn btn-default" type="button">搜索</button>
                               </span>
                         </div>
                     </form>
