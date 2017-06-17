@@ -90,6 +90,7 @@
     <script>
         $(function () {
             getPrice();
+            getLowestPrice();
             $("#searchSubmit").click(function () {
                 $("#searchForm").submit();
             })
@@ -101,7 +102,6 @@
         })
 
         function getPrice() {
-
             $.post("//localhost:8080/product/price?skuIds=<%=ids%>",
             function (data) {
                 var prices = eval(data);
@@ -109,15 +109,28 @@
                     var price = prices[i].price;
                     if(price > 0) {
                         $(".price").eq(i).text("￥"+prices[i].price);
-                        $(".price_lowest").eq(i).text("历史最低价：￥"+prices[i].price);
                     } else {
                         $(".price").eq(i).text("暂无报价");
-                        $(".price_lowest").eq(i).text("");
                     }
-
                 }
             })
         }
+
+        function getLowestPrice() {
+            $.post("//localhost:8080/product/lowestPrice?skuIds=<%=ids%>",
+                function (data) {
+                    var prices = eval(data);
+                    for(var i = 0; i < prices.length; i++) {
+                        var price = prices[i].price;
+                        if(price > 0) {
+                            $(".price_lowest").eq(i).text("历史最低价：￥"+prices[i].price);
+                        } else {
+                            $(".price_lowest").eq(i).text("");
+                        }
+                    }
+                })
+        }
+
     </script>
 </head>
 <body>

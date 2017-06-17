@@ -1,6 +1,8 @@
 package com.price.dao;
 
 import com.price.action.Price;
+import com.price.dto.LowestPriceDTO;
+import com.price.dto.ProductPriceDTO;
 import com.price.model.ProductPrice;
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,10 +21,18 @@ public class PriceDAOTest extends AbstractTransactionalJUnit4SpringContextTests 
 
     @Test
     public void getPriceByIdsTest() throws Exception {
-        List prices = priceDAO.getLastPriceByIds("120604,166133,185933,136328,166139,240215,273614");
-        for (Object o : prices) {
-            Object[] objs = (Object[])o;
-            System.out.println(objs[0] + "|" + objs[1] + "|" + objs[2]);
+        List<ProductPriceDTO> prices = priceDAO.getLastPriceByIds("120604,166133,185933,136328,166139,240215,273614");
+        for (ProductPriceDTO p : prices) {
+            System.out.println(p.getProductId() + "|" + p.getPrice() + "|" + p.getDate());
         }
+    }
+
+    @Test
+    public void getLowestPriceTest() throws Exception {
+        List<ProductPriceDTO> prices = priceDAO.getLowestPriceByIds("120604,166133,185933,136328,166139,240215,273614");
+        for(ProductPriceDTO l : prices) {
+            System.out.println(l.getProductId() + "|" + l.getPrice());
+        }
+
     }
 }

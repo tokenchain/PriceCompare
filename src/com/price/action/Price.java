@@ -23,6 +23,11 @@ public class Price extends ActionSupport {
         return SUCCESS;
     }
 
+    public String getLowestPrice() throws Exception {
+        prices = priceService.getLowestPriceByIds(skuIds);
+        return SUCCESS;
+    }
+
     public void setSkuIds(String skuIds) {
         this.skuIds = skuIds;
     }

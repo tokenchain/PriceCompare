@@ -32,6 +32,11 @@
                 <param name="root">prices</param>
             </result>
         </action>
+        <action name="lowestPrice" class="price" method="getLowestPrice">
+            <result name="success" type="json">
+                <param name="root">prices</param>
+            </result>
+        </action>
     </package>
 
     <package name="user" namespace="/user" extends="struts-default,json-default">
