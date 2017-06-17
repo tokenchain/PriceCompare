@@ -34,21 +34,21 @@
             </div>
         </div>
         <div class="row-fluid">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
+            <div class="col-md-2 col-xs-1"></div>
+            <div class="col-md-8 col-xs-10">
                 <div style="padding: 80px 100px 10px;">
                     <form id="searchForm" class="bs-example bs-example-form" role="form" action="http://localhost:8080/search/search">
                         <div class="input-group">
                             <input type="text" class="form-control" name="page" value="1" style="display: none">
-                            <input type="text" class="form-control" id="searchInputBar" name="keyword">
+                            <input type="text" class="form-control" id="searchInputBar" name="keyword" spellcheck="false" autocomplete="off">
                             <span class="input-group-btn">
                                   <button id="searchSubmit" class="btn btn-default" type="button">搜索</button>
-                              </span>
+                            </span>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-2 col-xs-1"></div>
         </div>
     </div>
     <%--搜索框-------------------------------%>
