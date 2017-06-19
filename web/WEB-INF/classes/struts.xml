@@ -25,7 +25,7 @@
 
     <package name="product" namespace="/product" extends="struts-default,json-default">
         <action name="item" class="item">
-            <result name="success">/search/searchResult.jsp</result>
+            <result name="success">/product/productDetail.jsp</result>
         </action>
         <action name="price" class="price">
             <result name="success" type="json">

@@ -106,100 +106,112 @@
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <index id="41" parent="19" name="fulltext_name">
+    <column id="41" parent="19" name="last_price">
+      <Position>6</Position>
+      <DataType>float|0</DataType>
+    </column>
+    <column id="42" parent="19" name="lowest_price">
+      <Position>7</Position>
+      <DataType>float|0</DataType>
+    </column>
+    <column id="43" parent="19" name="price_trend">
+      <Position>8</Position>
+      <DataType>tinyint(4)|0</DataType>
+    </column>
+    <index id="44" parent="19" name="fulltext_name">
       <ColNames>name</ColNames>
     </index>
-    <index id="42" parent="19" name="products_id_uindex">
+    <index id="45" parent="19" name="products_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="43" parent="19" name="PRIMARY">
+    <key id="46" parent="19" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="44" parent="19" name="products_id_uindex">
+    <key id="47" parent="19" name="products_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>products_id_uindex</UnderlyingIndexName>
     </key>
-    <column id="45" parent="20" name="id">
+    <column id="48" parent="20" name="id">
       <Position>1</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="46" parent="20" name="product_id">
+    <column id="49" parent="20" name="product_id">
       <Position>2</Position>
       <DataType>bigint(30)|0</DataType>
     </column>
-    <column id="47" parent="20" name="price">
+    <column id="50" parent="20" name="price">
       <Position>3</Position>
       <DataType>float|0</DataType>
     </column>
-    <column id="48" parent="20" name="save_date">
+    <column id="51" parent="20" name="save_date">
       <Position>4</Position>
       <DataType>date|0</DataType>
     </column>
-    <index id="49" parent="20" name="product_price_id_uindex">
+    <index id="52" parent="20" name="product_price_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="50" parent="20" name="PRIMARY">
+    <key id="53" parent="20" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="51" parent="20" name="product_price_id_uindex">
+    <key id="54" parent="20" name="product_price_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>product_price_id_uindex</UnderlyingIndexName>
     </key>
-    <column id="52" parent="21" name="id">
+    <column id="55" parent="21" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="53" parent="21" name="username">
+    <column id="56" parent="21" name="username">
       <Position>2</Position>
       <DataType>varchar(40)|0</DataType>
     </column>
-    <column id="54" parent="21" name="password">
+    <column id="57" parent="21" name="password">
       <Position>3</Position>
       <DataType>varchar(40)|0</DataType>
     </column>
-    <column id="55" parent="21" name="email">
+    <column id="58" parent="21" name="email">
       <Position>4</Position>
       <DataType>varchar(60)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="56" parent="21" name="state">
+    <column id="59" parent="21" name="state">
       <Position>5</Position>
       <DataType>tinyint(4)|0</DataType>
     </column>
-    <column id="57" parent="21" name="active_code">
+    <column id="60" parent="21" name="active_code">
       <Position>6</Position>
       <DataType>varchar(100)|0</DataType>
     </column>
-    <column id="58" parent="21" name="username_changed">
+    <column id="61" parent="21" name="username_changed">
       <Position>7</Position>
       <DataType>tinyint(1)|0</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <index id="59" parent="21" name="user_id_uindex">
+    <index id="62" parent="21" name="user_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="60" parent="21" name="user_email_uindex">
+    <index id="63" parent="21" name="user_email_uindex">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="61" parent="21" name="PRIMARY">
+    <key id="64" parent="21" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="62" parent="21" name="user_id_uindex">
+    <key id="65" parent="21" name="user_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>user_id_uindex</UnderlyingIndexName>
     </key>
-    <key id="63" parent="21" name="user_email_uindex">
+    <key id="66" parent="21" name="user_email_uindex">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>user_email_uindex</UnderlyingIndexName>
     </key>

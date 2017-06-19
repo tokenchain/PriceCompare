@@ -21,15 +21,15 @@
     }
     int row = productCountThisPage / 5;
     int productsLeftCount = productCountThisPage - row * 5;
-    String ids = "";
+    /*String ids = "";
     for (Product p : products) {
         ids += p.getId() + ",";
     }
-    ids = ids.substring(0, ids.length() - 1);
+    ids = ids.substring(0, ids.length() - 1);*/
 %>
 <html>
 <head>
-    <title>京东优选</title>
+    <title><%=keyword%> - 商品搜索 京东优选</title>
     <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
     <script type="text/javascript" src="../jslib/jquery-3.2.0.js"></script>
     <script type="text/javascript" src="../jslib/bootstrap.js"></script>
@@ -89,8 +89,8 @@
     </style>
     <script>
         $(function () {
-            getPrice();
-            getLowestPrice();
+            /*getPrice();
+            getLowestPrice();*/
             $("#searchSubmit").click(function () {
                 $("#searchForm").submit();
             })
@@ -101,8 +101,9 @@
             })
         })
 
+/*
         function getPrice() {
-            $.post("//localhost:8080/product/price?skuIds=<%=ids%>",
+            $.post("//localhost:8080/product/price?skuIds=",
             function (data) {
                 var prices = eval(data);
                 for(var i = 0; i < prices.length; i++) {
@@ -117,7 +118,7 @@
         }
 
         function getLowestPrice() {
-            $.post("//localhost:8080/product/lowestPrice?skuIds=<%=ids%>",
+            $.post("//localhost:8080/product/lowestPrice?skuIds=",
                 function (data) {
                     var prices = eval(data);
                     for(var i = 0; i < prices.length; i++) {
@@ -130,6 +131,7 @@
                     }
                 })
         }
+*/
 
     </script>
 </head>
@@ -149,7 +151,7 @@
                         <input type="text" class="form-control" id="searchInputBar" name="keyword" spellcheck="false" autocomplete="off" value="<%=keyword%>">
                         <span class="input-group-btn">
                                   <button id="searchSubmit" class="btn btn-default" type="button">搜索</button>
-                            </span>
+                        </span>
                     </div>
                 </form>
             </div>
@@ -199,10 +201,10 @@
                         <hr style="margin-top: 0px; margin-bottom: 0px"/>
                         <div class="caption">
                             <p class="price">
-                                ￥
+                                ￥<%=products.get(5*i + j).getLast_price()%>
                             </p>
                             <p class="price_lowest">
-                                历史最低价：￥
+                                历史最低价：￥<%=products.get(5*i + j).getLowest_price()%>
                             </p>
                             <p class="product_name" >
                                 <a href="//localhost:8080/product/item?id=<%=products.get(5*i + j).getId()%>"><%=products.get(5*i + j).getName()%></a>
@@ -236,10 +238,10 @@
                     <hr style="margin-top: 0px; margin-bottom: 0px"/>
                     <div class="caption">
                         <p class="price">
-                            ￥13.8
+                            ￥<%=products.get(5*row + i).getLast_price()%>
                         </p>
                         <p class="price_lowest">
-                            历史最低价：￥10.8
+                            历史最低价：￥<%=products.get(5*row + i).getLowest_price()%>
                         </p>
                         <p class="product_name" >
                             <a href="//localhost:8080/product/item?id=<%=products.get(5*row + i).getId()%>"><%=products.get(5*row + i).getName()%></a>

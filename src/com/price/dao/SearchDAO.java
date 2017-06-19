@@ -46,7 +46,7 @@ public class SearchDAO {
             return new ArrayList<>();
         }
         Session session = sessionFactory.getCurrentSession();
-        Query q = session.createQuery("select new com.price.model.Product(p.id, p.name, p.img_url, p.shop_name, p.category_id) from product p where p.id in (:list)") ;
+        Query q = session.createQuery("select new com.price.model.Product(p.id, p.name, p.img_url, p.shop_name, p.category_id, p.last_price, p.lowest_price, p.price_trend) from product p where p.id in (:list)") ;
         if(page * size <= list.size()) {
             q.setParameterList("list",list.subList((page - 1) * size, page * size));
         } else {

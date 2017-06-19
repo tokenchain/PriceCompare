@@ -64,7 +64,9 @@ public class Search extends ActionSupport {
 System.out.println("相关商品总量： " + keywordCount);*/
         } else {
             //无搜索结果
-            System.out.println("无搜索结果");
+            Map session = ActionContext.getContext().getSession();
+            session.remove("products");
+            session.put("products",null);
         }
         return SUCCESS;
     }
