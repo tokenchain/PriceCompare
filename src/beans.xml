@@ -59,6 +59,7 @@
             <tx:method name="register" propagation="REQUIRED"/>
             <tx:method name="active" propagation="REQUIRED"/>
             <tx:method name="add*" propagation="REQUIRED"/>
+            <tx:method name="has*" propagation="REQUIRED"/>
             <tx:method name="change*" propagation="REQUIRED"/>
             <tx:method name="search*" propagation="REQUIRED"/>
             <tx:method name="save*" propagation="REQUIRED"/>

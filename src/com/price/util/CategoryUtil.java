@@ -67,13 +67,13 @@ public class CategoryUtil {
             }
         }
 
-        for(Integer k : key) {
+/*        for(Integer k : key) {
             Category[] categories = categoryMap.get(k);
             String s = categories[0].getId() + "|" + categories[0].getName() + "|" + categories[0].getParentId() + "|" +
                     categories[1].getId() + "|" + categories[1].getName() + "|" + categories[1].getParentId() + "|" +
                     categories[2].getId() + "|" + categories[2].getName() + "|" + categories[2].getParentId();
             System.out.println(s);
-        }
+        }*/
 
     }
 

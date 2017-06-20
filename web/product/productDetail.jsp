@@ -9,6 +9,7 @@
     CategoryUtil.Category thirdClassCategory = category[0];
     CategoryUtil.Category secondClassCategory = category[1];
     CategoryUtil.Category firstClassCategory = category[2];
+    boolean hasFollow = (boolean)session.getAttribute("hasFollow");
 %>
 
 <html>
@@ -28,7 +29,31 @@
                     $("#searchForm").submit();
                 }
             })
+            $("#follow").click(function () {
+                $.post("//localhost:8080/product/follow?productId=<%=product.getId()%>",
+                    {cancelFollow : $(this).attr("name")},
+                function (data) {
+                    switch (data) {
+                        case 1:alert("收藏成功");followSwitch(true);break;
+                        case 2:alert("收藏失败");break;
+                        case 3:alert("取消收藏成功");followSwitch(false);break;
+                        case 4:alert("取消收藏失败");break;
+                        case 0:
+                        default :alert("收藏失败");break;
+                    }
+                });
+            })
         })
+
+        function followSwitch(data) {
+            $("#follow").attr("name", data);
+            if(data == true) {
+                $("#follow").text("取消收藏");
+            } else {
+                $("#follow").text("收藏商品");
+            }
+        }
+
     </script>
 </head>
 <body>
@@ -150,7 +175,18 @@
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
                     </p> <small>Someone famous <cite>Source Title</cite></small>
                 </blockquote>
-                <button type="button" class="btn btn-default">收藏商品</button>
+                <%
+                    if(hasFollow) {
+                %>
+                <button id="follow" type="button" class="btn btn-default" name="true">取消收藏</button>
+                <%
+                    } else {
+                %>
+                <button id="follow" type="button" class="btn btn-default" name="false">收藏商品</button>
+                <%
+                    }
+                %>
+
                 <button type="button" class="btn btn-default">查看价格走势</button>
             </div>
         </div>

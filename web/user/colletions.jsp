@@ -1,4 +1,16 @@
+<%@ page import="com.price.dto.FollowProductDTO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.price.model.Product" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<%
+    List<FollowProductDTO> followProductList = (List<FollowProductDTO>)session.getAttribute("followProductList");
+    SimpleDateFormat sdf  = new SimpleDateFormat("yyyy/MM/dd");
+%>
+
+
 <html>
 <head>
     <title>我的优选</title>
@@ -58,7 +70,7 @@
     </div>
     <div class="row-fluid">
         <div class="col-md-12">
-            <div class="col-md-2"></div>
+            <div class="col-md-1"></div>
             <div class="col-md-1">
                 <div class="list-group">
                     <a href="//localhost:8080/user/homepage" class="list-group-item">个人账号</a>
@@ -66,13 +78,66 @@
                     <a href="//localhost:8080/user/security" class="list-group-item">安全设置</a>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-9">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <img src="../img/head.png" alt="120x120" class="img-circle" style="display: block;width: auto;max-width:10%" />
                     </div>
                     <div class="panel-body">
+                        <%--收藏列表--%>
+                            <table class="table table-hover table-condensed">
+                                <thead>
+                                <tr>
+                                    <th width="10%">
+                                        商品编号
+                                    </th>
+                                    <th width="55%">
+                                        商品名称
+                                    </th>
+                                    <th width="10%">
+                                        当前价格
+                                    </th>
+                                    <th width="15%">
+                                        价格走势
+                                    </th>
+                                    <th width="10%">
+                                        关注时间
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
+                                <%
+                                    for(FollowProductDTO product : followProductList) {
+                                %>
+                                <tr>
+                                    <td>
+                                        <%=product.getProductId()%>
+                                    </td>
+                                    <td>
+                                        <a href="//localhost:8080/product/item?id=<%=product.getProductId()%>" ><%=product.getProductName()%></a>
+                                    </td>
+                                    <td>
+                                        <%=product.getPriceNow()%>
+                                    </td>
+                                    <td>
+                                        <%if(product.getPriceTrend()>0){%>
+                                        下跌<%=product.getPriceTrend()%>元
+                                        <%}else if(product.getPriceTrend()<0){%>
+                                        上涨<%=-product.getPriceTrend()%>元
+                                        <%} else {%>
+                                        -
+                                        <%}%>
+                                    </td>
+                                    <td>
+                                        <%=sdf.format(product.getFollowDate())%>
+                                    </td>
+                                </tr>
+                                <%
+                                    }
+                                %>
+                                </tbody>
+                            </table>
                     </div>
 
                     <div class="panel-footer">
@@ -81,7 +146,7 @@
                 </div>
 
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-1"></div>
         </div>
     </div>
 </div>
