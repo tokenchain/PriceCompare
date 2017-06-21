@@ -18,6 +18,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="../img/favicon.ico">
     <script type="text/javascript" src="../jslib/jquery-3.2.0.js"></script>
     <script type="text/javascript" src="../jslib/bootstrap.js"></script>
+    <script type="text/javascript" src="../jslib/echarts.js"></script>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <script>
         $(function () {
@@ -42,6 +43,105 @@
                         default :alert("收藏失败");break;
                     }
                 });
+            })
+            // 基于准备好的dom，初始化echarts实例
+            var myChart = echarts.init(document.getElementById('chart_price'));
+            var option = {
+                title: {
+                    text: '近期价格走势'
+                },
+                grid: {
+                    left: '1%',
+                    right: '6%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : []
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'价格趋势',
+                        type:'line',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        /*areaStyle: {normal: {}},*/
+                        data : []
+                    }
+                ]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            //myChart.setOption(option);
+
+            $.get("http://localhost:8080/product/historyPrice?getHistoryPriceId=<%=product.getId()%>",
+            function (data) {
+                var prices = eval(data);
+                var xAxis = new Array();
+                var priceData = new Array();
+                for(var i = 0; i < prices.length; i++) {
+                    var price = prices[i].price;
+                    var date = prices[i].date.substring(0,10);
+                    xAxis[i] = date;
+                    priceData[i] = price;
+                }
+                //alert(xAxis);
+                //alert(priceData);
+                var option = {
+                    title: {
+                        text: '近期价格走势'
+                    },
+                    grid: {
+                        left: '1%',
+                        right: '6%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            data : xAxis
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'价格趋势',
+                            type:'line',
+                            stack: '总量',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'top'
+                                }
+                            },
+                            /*areaStyle: {normal: {}},*/
+                            data:priceData
+                        }
+                    ]
+                }
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
             })
         })
 
@@ -170,11 +270,11 @@
                 </dd>
                 </dl>
 
-                <blockquote style="margin-top: 40px;margin-bottom: 60px">
+                <%--<blockquote style="margin-top: 40px;margin-bottom: 60px">
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.
                     </p> <small>Someone famous <cite>Source Title</cite></small>
-                </blockquote>
+                </blockquote>--%>
                 <%
                     if(hasFollow) {
                 %>
@@ -187,7 +287,9 @@
                     }
                 %>
 
-                <button type="button" class="btn btn-default">查看价格走势</button>
+                <button type="button" class="btn btn-default">查看历史价格</button>
+
+                <div id="chart_price" style="width: 600px;height:300px;margin-top: 10px;margin-bottom: 10px"></div>
             </div>
         </div>
     </div>

@@ -37,6 +37,11 @@
                 <param name="root">prices</param>
             </result>
         </action>
+        <action name="historyPrice" class="price" method="getHistoryPrice">
+            <result name="success" type="json">
+                <param name="root">historyPrices</param>
+            </result>
+        </action>
         <action name="follow" class="item" method="follow">
             <result name="success" type="json">
                 <param name="root">returnMsg</param>

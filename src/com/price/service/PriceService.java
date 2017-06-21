@@ -3,6 +3,7 @@ package com.price.service;
 import com.price.dao.PriceDAO;
 import com.price.dto.LowestPriceDTO;
 import com.price.dto.ProductPriceDTO;
+import com.price.model.ProductPrice;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -55,5 +56,13 @@ public class PriceService {
         }
     }
 
+    public List<ProductPrice> getHistoryPriceById(long id) {
+        try {
+            return priceDAO.getHistoryPriceById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }

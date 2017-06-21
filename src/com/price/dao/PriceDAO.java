@@ -2,6 +2,7 @@ package com.price.dao;
 
 import com.price.dto.LowestPriceDTO;
 import com.price.dto.ProductPriceDTO;
+import com.price.model.ProductPrice;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -55,6 +56,15 @@ public class PriceDAO {
             productPriceDTO.setPrice((float)objects[1]);
             list.add(productPriceDTO);
         }
+        return list;
+    }
+
+    public List<ProductPrice> getHistoryPriceById(long id) throws SQLException {
+        Session session = sessionFactory.getCurrentSession();
+        Query q = session.createQuery("from productPrice where productId = :id order by date ");
+        q.setParameter("id", id);
+        q.setMaxResults(7);
+        List<ProductPrice> list = q.list();
         return list;
     }
 }

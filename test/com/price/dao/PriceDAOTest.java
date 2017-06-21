@@ -33,6 +33,14 @@ public class PriceDAOTest extends AbstractTransactionalJUnit4SpringContextTests 
         for(ProductPriceDTO l : prices) {
             System.out.println(l.getProductId() + "|" + l.getPrice());
         }
-
     }
+
+    @Test
+    public void getHistoryPriceById() throws Exception {
+        List<ProductPrice> list = priceDAO.getHistoryPriceById(118717);
+        for(ProductPrice p : list) {
+            System.out.println(p.getProductId() + "|" + p.getPrice() + "|" + p.getDate());
+        }
+    }
+
 }

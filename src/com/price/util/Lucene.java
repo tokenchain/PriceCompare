@@ -71,20 +71,9 @@ public class Lucene {
         Lucene lucene = Lucene.getLucene();
         Date start = new Date();
 
-        //lucene.createIndex();
-        System.out.println(lucene.search("编织").size());
+        lucene.createIndex();
 
         Date end = new Date();
-        System.out.println("used:" + (end.getTime() - start.getTime()) + "ms.");
-
-        start = new Date();
-        System.out.println(lucene.search("编织线宏编程").size());
-        end = new Date();
-        System.out.println("used:" + (end.getTime() - start.getTime()) + "ms.");
-
-        start = new Date();
-        System.out.println(lucene.search("可自定义宏背光").size());
-        end = new Date();
         System.out.println("used:" + (end.getTime() - start.getTime()) + "ms.");
     }
 
