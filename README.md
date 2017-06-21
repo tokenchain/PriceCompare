@@ -34,5 +34,11 @@ material-design-iconic-font | 字体图标  | [https://github.com/zavoloklom/mat
 - IntelliJ IDEA: 开发IDE
 
 ### 预览图
-![idea](web/img/product.jpg)
->>>>>>> origin/master
+- 主页
+![idea](web/img/主页.png)
+- 注册
+![idea](web/img/注册界面.png)
+- 登录
+![idea](web/img/登录界面.png)
+- 个人主页/商品收藏
+![idea](web/img/商品收藏.png)
