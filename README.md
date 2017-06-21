@@ -19,11 +19,10 @@ Lucene | 搜索引擎  | [http://lucene.apache.org/](http://lucene.apache.org/)
 技术 | 名称 | 官网
 ----|------|----
 jQuery | 函式库  | [http://jquery.com/](http://jquery.com/)
-59	Bootstrap | 前端框架  | [http://getbootstrap.com/](http://getbootstrap.com/)
-60	Bootstrap-table | Bootstrap数据表格  | [http://bootstrap-table.wenzhixin.net.cn/](http://bootstrap-table.wenzhixin.net.cn/)
-61	Font-awesome | 字体图标  | [http://fontawesome.io/](http://fontawesome.io/)
-a month ago @shuzheng Update README.md	
-62	material-design-iconic-font | 字体图标  | [https://github.com/zavoloklom/material-design-iconic-font](https://github.com/zavoloklom/material-design-iconic-font)
+Bootstrap | 前端框架  | [http://getbootstrap.com/](http://getbootstrap.com/)
+Bootstrap-table | Bootstrap数据表格  | [http://bootstrap-table.wenzhixin.net.cn/](http://bootstrap-table.wenzhixin.net.cn/)
+Font-awesome | 字体图标  | [http://fontawesome.io/](http://fontawesome.io/)
+material-design-iconic-font | 字体图标  | [https://github.com/zavoloklom/material-design-iconic-font](https://github.com/zavoloklom/material-design-iconic-font)
 
 #### 开发工具:
 MySql: 数据库
