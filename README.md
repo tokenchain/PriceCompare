@@ -28,7 +28,17 @@ Font-awesome | 字体图标  | [http://fontawesome.io/](http://fontawesome.io/)
 material-design-iconic-font | 字体图标  | [https://github.com/zavoloklom/material-design-iconic-font](https://github.com/zavoloklom/material-design-iconic-font)
 
 #### 开发工具:
+<<<<<<< HEAD
 MySql: 数据库
 Tomcat: 应用服务器
 SVN|Git: 版本管理
 IntelliJ IDEA: 开发IDE
+=======
+- MySql: 数据库
+- Tomcat: 应用服务器
+- SVN|Git: 版本管理
+- IntelliJ IDEA: 开发IDE
+
+### 预览图
+![idea](web/img/product.jpg)
+>>>>>>> origin/master
